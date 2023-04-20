@@ -8,7 +8,18 @@
   
 <h1>Play</h1>
 
-<input placeholder="PIN"/>
-<input placeholder="Your name"/>
+<input placeholder="PIN" id="senene"/>
+<input placeholder="Your name" id="loko"/>
 
-<button>Play</button>
+<button onclick="apuntarse">Play</button>
+
+<script>
+    function apuntarse(){
+
+        fetch(`https://dungee-vall-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${senene.value}/user.json`,{
+            method: 'POST',
+            body:`{"name":"${loko.value}"}`
+        })
+
+    }
+</script>
