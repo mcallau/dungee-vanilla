@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <meta charset="UTF-8"/>
 <button onclick="generarandom()">START</button>
-<p>{pin}</p>
+<p id="pinipon"></p>
 
 
 <script>
     function generarandom(){
         const pin =Math.floor(Math.random()*1000);
-        console.log(pin)
+        pinipon.innerText=pin;
     }
 </SCript>
