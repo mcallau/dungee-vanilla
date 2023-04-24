@@ -11,15 +11,15 @@
 <input placeholder="PIN" id="senene"/>
 <input placeholder="Your name" id="loko"/>
 
-<button onclick="apuntarse">Play</button>
+<button onclick="apuntarse()">Play</button>
 
 <script>
     function apuntarse(){
 
-        fetch(`https://dungee-vall-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${senene.value}/user.json`,{
+        fetch(`https://dungee-vall-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${senene.value}/users.json`,{
             method: 'POST',
             body:`{"name":"${loko.value}"}`
-        })
+        });
 
     }
 </script>
