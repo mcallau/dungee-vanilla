@@ -8,17 +8,17 @@
   
 <h1>Play</h1>
 
-<input placeholder="PIN" id="senene"/>
-<input placeholder="Your name" id="loko"/>
+<input placeholder="PIN" id="pinEl"/>
+<input placeholder="Your name" id="nameEl"/>
 
 <button onclick="apuntarse()">Play</button>
 
 <script>
     function apuntarse(){
 
-        fetch(`https://dungee-vall-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${senene.value}/users.json`,{
+        fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pinEl.value}/users.json`,{
             method: 'POST',
-            body:`{"name":"${loko.value}"}`
+            body:`{"name":"${nameEl.value}"}`
         });
 
     }

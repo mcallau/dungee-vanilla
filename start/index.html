@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8"/>
-<nav id="mi-nav" class="clase-nav" role="navigation">
-    <a href="index.html">index</a>
-    <a href="start">Start</a>
-    <a href="play">Play</a>
-</nav>
+<h1>START</h1>
 <button onclick="generarandom()">START</button>
 <p id="pinipon"></p>
 
@@ -13,5 +9,14 @@
     function generarandom(){
         const pin =Math.floor(Math.random()*1000);
         pinipon.innerText=pin;
+    }
+
+    function obtenerUsuarios(){
+        fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/`)
+        .then(string => string.json())
+        .then(mama => {
+            console.log(mama);
+        })
+
     }
 </SCript>
