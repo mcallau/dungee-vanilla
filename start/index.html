@@ -42,8 +42,19 @@
     }
 
     function showQuestions(json) {
-        for (const question of json) {
-            questionEl.innerText += question.title;
-        }
+        const question = 0;
+        const time = 0;
+
+        const intervalId = setInterval(() => {
+            questionEl.innerText += json[question].title;
+            time += 1;
+
+            if (time == 5) {
+                time = 0;
+                question++;
+            }
+
+            if (question > json.length) clearInterval(intervalId);
+        }, 1000);
     }
 </SCript>
