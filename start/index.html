@@ -2,26 +2,23 @@
 <meta charset="UTF-8"/>
 <h1>START</h1>
 <button onclick="generarandom()">START</button>
-<p id="pinipon"></p>
-
+<p id="pinEl"></p>
+<p id="playersEl"></p>
 
 <script>
     let pin = 0;
     function generarandom(){
         pin = Math.floor(Math.random()*9000)+1000;
-        pinipon.innerText=pin;
+        pinEl.innerText=pin;
     }
 
     function obtenerUsuarios(){
         fetch(`https://dungee-vercel-1.vercel.app/api/damelosusers?pin=${pin}`)
         .then(string => {console.log(string); return string.json()})
-        .then(mama => {
-            console.log(mama);
+        .then(json => {
+            playersEl.innerText = json;
         })
     };
 
-    setInterval(
-        obtenerUsuarios
-        ,1000
-    );
+    setInterval(obtenerUsuarios, 3000);
 </SCript>
