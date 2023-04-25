@@ -12,64 +12,19 @@
 <button onclick="generarandom()">CREATE DUNGEE</button>
 <p id="pinEl"></p>
 <p id="playersEl"></p>
-<button onclick="startgame()">START!</button>
 
-<p id="questionEl"></p>
-<p id="a0El"></p>
-<p id="a1El"></p>
-<p id="a2El"></p>
-<p id="a3El"></p>
 
 <script>
-    let pin = 0;
-    let obtenerUsuariosInterval;
-
     function generarandom(){
-        pin = Math.floor(Math.random()*9000)+1000;
+        const pin = Math.floor(Math.random()*9000)+1000;
         pinEl.innerText=pin;
-        obtenerUsuariosInterval = setInterval(obtenerUsuarios, 3000);
     }
 
     function obtenerUsuarios(){
         fetch(`https://dungee-vercel-1.vercel.app/api/damelosusers?pin=${pin}`)
         .then(string => string.json())
         .then(json => {
-            showUsers(json);
+            console.log(json);
         })
-    }
-
-    function showUsers(json){
-        playersEl.innerText = "";
-        for (const user in json.users) {
-            playersEl.innerText = json.users[user].name + ", ";
-        }
-    }
-
-    function startgame(){
-        clearInterval(obtenerUsuariosInterval);
-        
-        fetch(`https://dungee-vercel-1.vercel.app/api/damelasquestions`)
-        .then(string => string.json())
-        .then(json => showQuestions(json))
-    }
-
-    function showQuestions(json) {
-        let question = 0;
-        let time = 0;
-
-        const intervalId = setInterval(() => {
-            questionEl.innerText = json[question].title + ` (${question} : ${time})`;
-            time += 1;
-
-            if (time == 5) {
-                time = 0;
-                question++;
-            }
-
-            if (question >= json.length) {
-                clearInterval(intervalId);
-                questionEl.innerText = "AU CACAU";
-            }
-        }, 1000);
     }
 </script>
