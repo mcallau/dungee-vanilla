@@ -16,9 +16,17 @@
         fetch(`https://dungee-vercel-1.vercel.app/api/damelosusers?pin=${pin}`)
         .then(string => {console.log(string); return string.json()})
         .then(json => {
+            showUsers(json);
             playersEl.innerText = JSON.stringify(json);
         })
     };
+
+    function showUsers(json){
+        playersEl.innerText = "";
+        for (const user in json.users) {
+            playersEl.innerText += json.users[user].name + ", ";
+        }
+    }
 
     setInterval(obtenerUsuarios, 3000);
 </SCript>
