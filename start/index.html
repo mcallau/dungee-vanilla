@@ -42,8 +42,8 @@
     }
 
     function showQuestions(json) {
-        const question = 0;
-        const time = 0;
+        let question = 0;
+        let time = 0;
 
         const intervalId = setInterval(() => {
             questionEl.innerText = json[question].title + ` (${question} : ${time})`;
