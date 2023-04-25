@@ -19,6 +19,8 @@
     function generarandom(){
         pin = Math.floor(Math.random()*9000)+1000;
         pinEl.innerText=pin;
+
+        obtenerUsuarios();
     }
 
     function obtenerUsuarios(){
@@ -29,5 +31,4 @@
         })
     }
 
-    obtenerUsuarios();
 </script>

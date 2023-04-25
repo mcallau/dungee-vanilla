@@ -1,6 +1,7 @@
 export default function handler(request, response) {
 
-    fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins.json`)
+    let pin = request.query.pin;
+    fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pin}.json`)
     .then(data => data.json())
     .then(json => response.json(json))
 }
