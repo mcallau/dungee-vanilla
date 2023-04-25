@@ -13,8 +13,8 @@
     }
 
     function obtenerUsuarios(){
-        fetch(`https://dungee-vercel-1.vercel.app/damelosusers/pin=${pin}`)
-        .then(string => string.json())
+        fetch(`https://dungee-vercel-1.vercel.app/api/damelosusers/pin=${pin}`)
+        .then(string => {console.log(string); return string.json()})
         .then(mama => {
             console.log(mama);
         })
