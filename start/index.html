@@ -16,7 +16,7 @@
         fetch(`https://dungee-vercel-1.vercel.app/api/damelosusers?pin=${pin}`)
         .then(string => {console.log(string); return string.json()})
         .then(json => {
-            playersEl.innerText = json;
+            playersEl.innerText = JSON.stringify(json);
         })
     };
 
