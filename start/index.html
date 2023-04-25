@@ -31,7 +31,7 @@
     function showUsers(json){
         playersEl.innerText = "";
         for (const user in json.users) {
-            playersEl.innerText += json.users[user].name + ", ";
+            playersEl.innerText = json.users[user].name + ", ";
         }
     }
 
@@ -46,7 +46,7 @@
         const time = 0;
 
         const intervalId = setInterval(() => {
-            questionEl.innerText += json[question].title;
+            questionEl.innerText = json[question].title + ` (${question} : ${time})`;
             time += 1;
 
             if (time == 5) {
