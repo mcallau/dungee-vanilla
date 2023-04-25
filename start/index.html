@@ -6,13 +6,14 @@
 
 
 <script>
+    let pin = 0;
     function generarandom(){
-        const pin =Math.floor(Math.random()*1000);
+        pin = Math.floor(Math.random()*9000)+1000;
         pinipon.innerText=pin;
     }
 
     function obtenerUsuarios(){
-        fetch(`https://dungee-vercel-1.vercel.app/damelosusers/`)
+        fetch(`https://dungee-vercel-1.vercel.app/damelosusers/pin=${pin}`)
         .then(string => string.json())
         .then(mama => {
             console.log(mama);
