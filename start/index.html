@@ -7,10 +7,10 @@
 <button onclick="startgame()">START!</button>
 
 <p id="questionEl"></p>
+<p id="a0El"></p>
 <p id="a1El"></p>
 <p id="a2El"></p>
 <p id="a3El"></p>
-<p id="a4El"></p>
 
 <script>
     let pin = 0;
@@ -54,7 +54,10 @@
                 question++;
             }
 
-            if (question >= json.length) clearInterval(intervalId);
+            if (question >= json.length) {
+                clearInterval(intervalId);
+                questionEl.innerText = "AU CACAU";
+            }
         }, 1000);
     }
 </SCript>
