@@ -23,6 +23,5 @@ export default function handler(request, response) {
             correct: 3
         }];
     
-
     response.json(questions);
 }
