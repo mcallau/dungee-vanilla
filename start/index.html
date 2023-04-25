@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <meta charset="UTF-8"/>
 <h1>START</h1>
-<button onclick="generarandom()">START</button>
+<button onclick="generarandom()">CREATE GAME</button>
 <p id="pinEl"></p>
 <p id="playersEl"></p>
+<button onclick="startgame()">START!</button>
+
+<p id="questionEl"></p>
+<p id="a1El"></p>
+<p id="a2El"></p>
+<p id="a3El"></p>
+<p id="a4El"></p>
 
 <script>
     let pin = 0;
     function generarandom(){
         pin = Math.floor(Math.random()*9000)+1000;
         pinEl.innerText=pin;
+        setInterval(obtenerUsuarios, 3000);
     }
 
     function obtenerUsuarios(){
@@ -17,7 +25,6 @@
         .then(string => {console.log(string); return string.json()})
         .then(json => {
             showUsers(json);
-            //playersEl.innerText = JSON.stringify(json);
         })
     };
 
@@ -28,5 +35,15 @@
         }
     }
 
-    setInterval(obtenerUsuarios, 3000);
+    function startgame(){
+        fetch(`https://dungee-vercel-1.vercel.app/api/damelasquestions`)
+        .then(string => string.json())
+        .then(json => showQuestions(json))
+    }
+
+    function showQuestions(json) {
+        for (const question of json) {
+            questionEl.innerText += question.title;
+        }
+    }
 </SCript>
