@@ -27,7 +27,11 @@
         fetch(`https://dungee-tin.vercel.app/api/damelosusers?pin=${pin}`)
         .then(string => string.json())
         .then(json => {
-            console.log(json);
+            playersEl.innerText  = "";
+
+            for (const x in json.users) {
+                playersEl.innerText += json.users[x].name;
+            }
         })
     }
 
