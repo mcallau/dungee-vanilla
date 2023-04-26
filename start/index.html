@@ -38,7 +38,11 @@
     }
 
     function mostrarPreguntas(){
-        
+        fetch("https://dungee-tin.vercel.app/api/damelasquestions")
+        .then(data =>  data.json())
+        .then(questions => {
+            console.log(questions)
+        })
     }
 
 </script>
