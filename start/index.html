@@ -13,7 +13,7 @@
 <p id="pinEl"></p>
 <p id="playersEl"></p>
 <button onclick="mostrarPreguntas()">JUGAR YA!</button>
-
+<p id="preguntasEl"></p>
 
 <script>
     let pin;
@@ -41,7 +41,12 @@
         fetch("https://dungee-tin.vercel.app/api/damelasquestions")
         .then(data =>  data.json())
         .then(questions => {
-            console.log(questions)
+            for (const pregunta in questions.preguntas){
+
+                preguntasEl.innerText += questions.preguntas[pregunta].pregunta;
+
+
+            }
         })
     }
 
