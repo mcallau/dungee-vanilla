@@ -7,12 +7,13 @@
     <a href="play">Play existing Dungee</a>
 </nav>
 
-<h1>Create new Dungee</h1>
-
-<button onclick="generarandom()">CREATE DUNGEE</button>
-<p id="pinEl"></p>
-<p id="playersEl"></p>
-<button onclick="mostrarPreguntas()">JUGAR YA!</button>
+<div id="lodearriba">
+    <h1>Create new Dungee</h1>
+    <button onclick="generarandom()">CREATE DUNGEE</button>
+    <p id="pinEl"></p>
+    <p id="playersEl"></p>
+    <button onclick="mostrarPreguntas()">JUGAR YA!</button>
+</div>
 <p id="preguntasEl"></p>
 
 <script>
@@ -38,20 +39,26 @@
     }
 
     function mostrarPreguntas(){
+
+
         fetch("https://dungee-tin.vercel.app/api/damelasquestions")
         .then(data =>  data.json())
         .then(questions => {
             for (const pregunta in questions.preguntas){
-
                 preguntasEl.innerHTML += "<h1>" + questions.preguntas[pregunta].pregunta + "</h1>";
                 preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta0 + "</h2>";
                 preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta1 + "</h2>";
                 preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta2 + "</h2>";
                 preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta3 + "</h2>";
-
-
             }
-        })
+        });
+
+        ocultarCosasDeArriba();
+
+    }
+
+    function ocultarCosasDeArriba(){
+        lodearriba.style.display = "none";
     }
 
 </script>
