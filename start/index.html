@@ -14,6 +14,7 @@
     <p id="playersEl"></p>
     <button onclick="mostrarPreguntas()">JUGAR YA!</button>
 </div>
+
 <p id="preguntasEl"></p>
 
 <script>
@@ -67,9 +68,7 @@
 
 <style> 
 .oculto {
-    max-height: 0px;
-    overflow: hidden;
-
-    transition: max-height 0.3s;
+    transform: scaleY(0);
+    transition: transform 0.3s;
 }
 </style>
