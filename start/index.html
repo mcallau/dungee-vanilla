@@ -43,7 +43,11 @@
         .then(questions => {
             for (const pregunta in questions.preguntas){
 
-                preguntasEl.innerText += questions.preguntas[pregunta].pregunta;
+                preguntasEl.innerHTML += "<h1>" + questions.preguntas[pregunta].pregunta + "</h1>";
+                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta0 + "</h2>";
+                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta1 + "</h2>";
+                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta2 + "</h2>";
+                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta3 + "</h2>";
 
 
             }
