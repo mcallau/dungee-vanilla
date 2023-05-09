@@ -15,7 +15,7 @@
     <button onclick="mostrarPreguntas()">JUGAR YA!</button>
 </div>
 
-<p id="preguntasEl"></p>
+<div id="preguntasEl"></div>
 
 <script>
     let pin;
@@ -49,7 +49,9 @@
         .then(data =>  data.json())
         .then(questions => {
             let html = "";
+            let i = 0;
             for (const pregunta in questions.preguntas){
+                html += `<div id='pregunta${i}' class='oculto'>`;
                 html += "<h1>" + questions.preguntas[pregunta].pregunta + "</h1>";
                 html += "<ul>"
                 html += "<li>" + questions.preguntas[pregunta].respuesta0;
@@ -57,13 +59,29 @@
                 html += "<li>" + questions.preguntas[pregunta].respuesta2;
                 html += "<li>" + questions.preguntas[pregunta].respuesta3;
                 html += "</ul>"
+                html += "</div>"
             }
             preguntasEl.innerHTML = html;
+            irMostrandoPreguntas();
+
         });
 
         ocultarCosasDeArriba();
 
     }
+
+    function irMostrandoPreguntas() {
+        let i = 0;
+        document.getElementById(`pregunta${i}`).classList.toggle("oculto");
+
+        setInterval(() => {
+            document.getElementById(`pregunta${i}`).classList.toggle("oculto");
+            i++;
+            document.getElementById(`pregunta${i}`).classList.toggle("oculto");
+
+        }, 3000);
+    }
+
 
     function ocultarCosasDeArriba(){
         lodearriba.classList.toggle("oculto");
@@ -78,3 +96,15 @@
     display: none;
 }
 </style>
+
+/*
+
+-------------
+|           |
+-------------
+|     |     |
+-------------
+|     |     |
+-------------
+
+*/
