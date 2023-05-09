@@ -19,16 +19,18 @@
 
 <script>
     let pin;
+    let obtenerUsuariosInterval;
+
     function generarandom(){
         pin = Math.floor(Math.random()*9000)+1000;
         pinEl.innerText = pin;
         playersEl.innerText = "";
 
-        setInterval(obtenerUsuarios, 3000);
+        obtenerUsuariosInterval = setInterval(obtenerUsuarios, 3000);
     }
 
     function obtenerUsuarios(){
-        fetch(`https://dungee-tin.vercel.app/api/damelosusers?pin=${pin}`)
+        fetch(`/api/damelosusers?pin=${pin}`)
         .then(string => string.json())
         .then(json => {
             playersEl.innerText  = "";
@@ -39,19 +41,24 @@
         })
     }
 
-    function mostrarPreguntas(){
+    function mostrarPreguntas() {
 
+        clearInterval(obtenerUsuariosInterval);
 
-        fetch("https://dungee-tin.vercel.app/api/damelasquestions")
+        fetch("/api/damelasquestions")
         .then(data =>  data.json())
         .then(questions => {
+            let html = "";
             for (const pregunta in questions.preguntas){
-                preguntasEl.innerHTML += "<h1>" + questions.preguntas[pregunta].pregunta + "</h1>";
-                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta0 + "</h2>";
-                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta1 + "</h2>";
-                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta2 + "</h2>";
-                preguntasEl.innerHTML += "<h2>" + questions.preguntas[pregunta].respuesta3 + "</h2>";
+                html += "<h1>" + questions.preguntas[pregunta].pregunta + "</h1>";
+                html += "<ul>"
+                html += "<li>" + questions.preguntas[pregunta].respuesta0;
+                html += "<li>" + questions.preguntas[pregunta].respuesta1;
+                html += "<li>" + questions.preguntas[pregunta].respuesta2;
+                html += "<li>" + questions.preguntas[pregunta].respuesta3;
+                html += "</ul>"
             }
+            preguntasEl.innerHTML = html;
         });
 
         ocultarCosasDeArriba();
@@ -68,16 +75,6 @@
 
 <style> 
 .oculto {
-    animation: desaparecer 4s;
-}
-
-@keyframes desparacer {
-    99% {
-        transform: scaleY(0);
-        
-    }
-    100% {
-        height: 0;
-    }
+    display: none;
 }
 </style>
