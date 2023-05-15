@@ -74,7 +74,7 @@
     function irMostrandoPreguntas(cantidad) {
         let i = 0;
         document.getElementById(`pregunta${i}`).classList.toggle("oculto");
-        fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pinEl.value}.json`,{
+        fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pin}.json`,{
             method: 'PUT',
             body:`{"pregunta":${i}}`
         });
@@ -83,7 +83,7 @@
             document.getElementById(`pregunta${i}`).classList.toggle("oculto");
             i++;
             document.getElementById(`pregunta${i}`).classList.toggle("oculto");
-            fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pinEl.value}.json`,{
+            fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pin}.json`,{
                 method: 'PUT',
                 body:`{"pregunta":${i}}`
             });
