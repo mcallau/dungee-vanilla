@@ -64,6 +64,7 @@
                     <li>${questions.preguntas[pregunta].respuesta3}
                     </ul>
                     </div>`;
+                    i++;
                 }
                 preguntasEl.innerHTML = html;
                 irMostrandoPreguntas(i-1);
@@ -86,7 +87,7 @@
                 method: 'PUT',
                 body:`{"pregunta":${i}}`
             });
-            
+
             if (i == cantidad) {
                 clearInterval(mostrarPreguntasInterval);
             }
