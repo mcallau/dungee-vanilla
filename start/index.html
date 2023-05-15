@@ -3,16 +3,16 @@
 <meta charset="UTF-8"/>
 <nav>
     <a href="/">Home</a>
-    <a href="start">Start new Dungee</a>
-    <a href="play">Play existing Dungee</a>
+    <a href="start">Nuevo Dungee</a>
+    <a href="play">Jugar un Dungee</a>
 </nav>
 
-<div id="lodearriba">
-    <h1>Create new Dungee</h1>
-    <button onclick="generarandom()">CREATE DUNGEE</button>
+<div id="lodearribaEl">
+    <h1>Nuevo Dungee</h1>
+    <button onclick="generarandom()">CREAR NUEVA PARTIDA DUNGEE</button>
     <p id="pinEl"></p>
-    <p id="playersEl"></p>
-    <button onclick="mostrarPreguntas()">JUGAR YA!</button>
+    <div id="playersEl"></div>
+    <button onclick="mostrarPreguntas()">EMPEZAR PARTIDA!</button>
 </div>
 
 <div id="preguntasEl"></div>
@@ -33,58 +33,69 @@
         fetch(`/api/damelosusers?pin=${pin}`)
         .then(string => string.json())
         .then(json => {
-            playersEl.innerText  = "";
+            let html = "<ul>";
 
             for (const x in json.users) {
-                playersEl.innerText += json.users[x].name;
+                html += `<li>${json.users[x].name}</li>`;
             }
+            html += "</ul>";
+
+            playersEl.innerHTML = html;
         })
     }
 
     function mostrarPreguntas() {
 
         clearInterval(obtenerUsuariosInterval);
-
-        fetch("/api/damelasquestions")
-        .then(data =>  data.json())
-        .then(questions => {
-            let html = "";
-            let i = 0;
-            for (const pregunta in questions.preguntas){
-                html += `<div id='pregunta${i}' class='oculto'>`;
-                html += "<h1>" + questions.preguntas[pregunta].pregunta + "</h1>";
-                html += "<ul>"
-                html += "<li>" + questions.preguntas[pregunta].respuesta0;
-                html += "<li>" + questions.preguntas[pregunta].respuesta1;
-                html += "<li>" + questions.preguntas[pregunta].respuesta2;
-                html += "<li>" + questions.preguntas[pregunta].respuesta3;
-                html += "</ul>"
-                html += "</div>"
-            }
-            preguntasEl.innerHTML = html;
-            irMostrandoPreguntas();
-
-        });
-
         ocultarCosasDeArriba();
 
+        fetch("/api/damelasquestions")
+            .then(data =>  data.json())
+            .then(questions => {
+                let html = "";
+                let i = 0;
+                for (const pregunta in questions.preguntas){
+                    html += `<div id='pregunta${i}' class='oculto'>
+                    <h1>${questions.preguntas[pregunta].pregunta}</h1>
+                    <ul>
+                    <li>${questions.preguntas[pregunta].respuesta0}
+                    <li>${questions.preguntas[pregunta].respuesta1}
+                    <li>${questions.preguntas[pregunta].respuesta2}
+                    <li>${questions.preguntas[pregunta].respuesta3}
+                    </ul>
+                    </div>`;
+                }
+                preguntasEl.innerHTML = html;
+                irMostrandoPreguntas(i-1);
+            });
     }
 
-    function irMostrandoPreguntas() {
+    function irMostrandoPreguntas(cantidad) {
         let i = 0;
         document.getElementById(`pregunta${i}`).classList.toggle("oculto");
+        fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pinEl.value}.json`,{
+            method: 'PUT',
+            body:`{"pregunta":${i}}`
+        });
 
-        setInterval(() => {
+        const mostrarPreguntasInterval = setInterval(() => {
             document.getElementById(`pregunta${i}`).classList.toggle("oculto");
             i++;
             document.getElementById(`pregunta${i}`).classList.toggle("oculto");
-
+            fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/PIN${pinEl.value}.json`,{
+                method: 'PUT',
+                body:`{"pregunta":${i}}`
+            });
+            
+            if (i == cantidad) {
+                clearInterval(mostrarPreguntasInterval);
+            }
         }, 3000);
     }
 
 
     function ocultarCosasDeArriba(){
-        lodearriba.classList.toggle("oculto");
+        lodearribaEl.classList.toggle("oculto");
     }
 
 </script>
@@ -96,15 +107,3 @@
     display: none;
 }
 </style>
-
-/*
-
--------------
-|           |
--------------
-|     |     |
--------------
-|     |     |
--------------
-
-*/
