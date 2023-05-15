@@ -26,6 +26,14 @@ export default function handler(request, response) {
                 "respuesta3": "1",
                 "correcta": 1
             },
+            "pregunta3" : {
+                "pregunta": "20+10?",
+                "respuesta0": "40",
+                "respuesta1": "10",
+                "respuesta2": "20",
+                "respuesta3": "30",
+                "correcta": 3
+            }
         }
     }
         
