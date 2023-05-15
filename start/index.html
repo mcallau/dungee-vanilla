@@ -33,6 +33,8 @@
         fetch(`/api/damelosusers?pin=${pin}`)
         .then(string => string.json())
         .then(json => {
+            if (json == null) return;
+            
             let html = "<ul>";
 
             for (const x in json.users) {
