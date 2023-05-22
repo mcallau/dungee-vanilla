@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <meta charset="UTF-8"/>
-<script type="module" src="/modules/db.js"></script>
+
 <title>Dungee</title>
 
 <nav>
@@ -24,8 +24,15 @@
     <div id="preguntasEl"></div>
 </div>
 
+<script type="module">
+    import {fetchUsuarios, fetchPreguntas, updatePreguntaActual} from '/modules/db.js';
+    window.fetchUsuarios = fetchUsuarios;
+    window.fetchPreguntas = fetchPreguntas;
+    window.updatePreguntaActual = updatePreguntaActual;
+</script>
+
 <script>
-import {fetchUsuarios, fetchPreguntas, updatePreguntaActual} from '/modules/db.js'
+// import {fetchUsuarios, fetchPreguntas, updatePreguntaActual} from '/modules/db.js'
 let pin;
 let obtenerUsuariosInterval;
 
@@ -66,10 +73,10 @@ function startGame(){
             codiHTML += `<div id='pregunta${i}' class='pregunta' class='oculto'>
                 <h1>${json.preguntas[pregunta].pregunta} </h1>
                 <ul>
-                <li>${json.preguntas[pregunta].res1}</li>
-                <li>${json.preguntas[pregunta].res2}</li>
-                <li>${json.preguntas[pregunta].res3}</li>
-                <li>${json.preguntas[pregunta].res4}</li>
+                    <li>${json.preguntas[pregunta].respuesta0}</li>
+                    <li>${json.preguntas[pregunta].respuesta1}</li>
+                    <li>${json.preguntas[pregunta].respuesta2}</li>
+                    <li>${json.preguntas[pregunta].respuesta3}</li>
                 </ul>
                 </div>`
             i++;

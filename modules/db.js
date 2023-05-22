@@ -3,7 +3,7 @@ export function fetchUsuarios(){
 }
 
 export function fetchPreguntas(){
-    return fetch(`/api/damelaspreguntas`).then(preguntitas => preguntitas.json())
+    return fetch(`/api/damelasquestions`).then(preguntitas => preguntitas.json())
 }
 
 export function updatePreguntaActual(i){
