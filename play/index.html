@@ -13,7 +13,7 @@
     <h1>PLAY</h1>
     <input id="pinEl" placeholder="PIN"/>
     <input id="nomEl" placeholder="Your name"/>
-    <button onclick="apuntarse()">PLAY</button>
+    <button id="joinButton">JOIN</button>
 </div>
 
 <div id="waitingScreen" class="fragment">
@@ -22,93 +22,86 @@
 
 <div id="botonesScreen" class="fragment">
     <div class="botones">
-        <button onclick="responder('a')">rojo</button>
-        <button onclick="responder('b')">verde</button>
-        <button onclick="responder('c')">azul</button>
-        <button onclick="responder('d')">amarillo</button>
+        <button id="aButton">rojo</button>
+        <button id="bButton">verde</button>
+        <button id="cButton">azul</button>
+        <button id="dButton">amarillo</button>
     </div>    
 </div>
 
 
-<script>
+<script type="module">
+
+    import { addUser, fetchPreguntas, updatePreguntaActual } from '/modules/db.js';
+    import { mostrar } from '/modules/ui.js';
+
     let pin;
+    let nom;
     let preguntaActual;
+
+    joinButton.onclick = apuntarse;
+    aButton.onclick = () => { responder('a') };
+    bButton.onclick = () => { responder('b') };
+    cButton.onclick = () => { responder('c') };
+    dButton.onclick = () => { responder('d') };
 
     mostrar("apuntarseScreen", "fragment");
 
 
     function apuntarse(){
         pin = pinEl.value;
-        fetch (`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/users.json`, {
-            method: 'POST',
-            body: `{"name": "${nomEl.value}" }`
-        });
+        nom = nomEl.value;
+
+        addUser(pin, nom);
 
         mostrar("waitingScreen", "fragment");
 
         obtenerPreguntaActual();
     }
 
-function obtenerPreguntaActual(){
-    setInterval(()=>{
-        fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/pregunta.json`)
-        .then(data => data.json())
-        .then(json => {
-            if (json != null) {
-                preguntaActual = json;
-                mostrar("botonesScreen", "fragment");
-            }
-        })
-    },1000);
-}
+    function obtenerPreguntaActual(){
+        setInterval(()=>{
+            getPreguntaActual(pin).then(json => {
+                if (json != null) {
+                    preguntaActual = json;
+                    mostrar("botonesScreen", "fragment");
+                }
+            })
+        },1000);
+    }
 
-function responder(respuesta){
-
-console.log(`${preguntaActual} responde: ${respuesta}`)
-
-
-}
-
-
-
-// lib
-function mostrar(elementId, className){
-    document.querySelectorAll(`.${className}`).forEach(el => el.classList.add("oculto"));
-    document.getElementById(elementId).classList.remove("oculto");
-}
-
-
-
-
-
-
-
+    function responder(respuesta){
+        console.log(`${preguntaActual} responde: ${respuesta}`);
+    }
 
 </script>
+
+
+
 <style>
     * {
-	border: 0;
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-:root {
-	--bg: #e3e4e8;
-	--fg: #17181c;
-	--dur: 8s;
-	font-size: calc(20px + (30 - 20) * (100vw - 320px) / (1280 - 320));
-}
-body {
-	background: var(--bg);
-	color: var(--fg);
-	font: bold 1em/1.5 "Comfortaa", sans-serif;
-	display: grid;
-	place-items: center;
-	align-content: center;
-	height: 100vh;
-	letter-spacing: 0.1em;
-	text-transform: uppercase;
-}
+        border: 0;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    :root {
+        --bg: #e3e4e8;
+        --fg: #17181c;
+        --dur: 8s;
+        font-size: calc(20px + (30 - 20) * (100vw - 320px) / (1280 - 320));
+    }
+    body {
+        background: var(--bg);
+        color: var(--fg);
+        font: bold 1em/1.5 "Comfortaa", sans-serif;
+        display: grid;
+        place-items: center;
+        align-content: center;
+        height: 100vh;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+    }
 
     nav {
         display: flex;
@@ -160,6 +153,7 @@ body {
     html {
         height: 100%;
     }
+    
     .buttons {
         justify-content: center;
         display: flex;
