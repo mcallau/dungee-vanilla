@@ -1,4 +1,4 @@
-export function fetchUsuarios(){
+export function fetchUsuarios(pin){
     return fetch(`/api/damelosusers?pin=${pin}`).then(datos => datos.json())
 }
 
