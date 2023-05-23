@@ -7,9 +7,9 @@ export function fetchPreguntas(){
 }
 
 export function updatePreguntaActual(i, pin){
-    fetch (`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}.json`, {
+    fetch (`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/pregunta.json`, {
         method: 'PUT',
-        body: `{"pregunta": ${i}}`
+        body: `{"value": ${i}}`
     });
 }
 

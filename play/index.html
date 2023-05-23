@@ -62,7 +62,7 @@
         setInterval(()=>{
             getPreguntaActual(pin).then(json => {
                 if (json != null) {
-                    preguntaActual = json;
+                    preguntaActual = json.value;
                     mostrar("botonesScreen", "fragment");
                 }
             })
