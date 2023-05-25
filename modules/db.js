@@ -29,6 +29,6 @@ export function getPreguntaActual(pin){
 export function updateRespuesta(pin, userid, preguntaActual, respuesta){
     fetch (`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/users/${userid}/respuesta${preguntaActual}.json`, {
         method: 'PUT',
-        body: `{"value": "${nom}" }`
+        body: `{"value": "${respuesta}" }`
     });
 }
