@@ -7,20 +7,20 @@ export function fetchPreguntas(){
 }
 
 export function updatePreguntaActual(i, pin){
-    fetch (`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/pregunta.json`, {
+    fetch (`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/pregunta.json`, {
         method: 'PUT',
         body: `{"value": ${i}}`
     });
 }
 
 export function addUser(pin, nom){
-    fetch (`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/users.json`, {
+    fetch (`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/users.json`, {
             method: 'POST',
             body: `{"name": "${nom}" }`
     });
 }
 
 export function getPreguntaActual(pin){
-    return fetch(`https://dungee-1c560-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/pregunta.json`)
+    return fetch(`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/pregunta.json`)
         .then(data => data.json())
 }
