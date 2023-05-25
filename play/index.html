@@ -20,6 +20,7 @@
 </div>
 
 <div id="botonesScreen" class="fragment">
+    <h1>Pregunta: <span id="preguntaActualEl"></span></h1>
     <div class="botones">
         <button id="aButton">rojo</button>
         <button id="bButton">verde</button>
@@ -51,7 +52,10 @@
         pin = pinEl.value;
         nom = nomEl.value;
 
-        addUser(pin, nom);
+        addUser(pin, nom)
+        .then(user => {
+            console.log(user);
+        })
 
         mostrar("waitingScreen", "fragment");
 
@@ -64,13 +68,14 @@
                 if (json != null) {
                     preguntaActual = json.value;
                     mostrar("botonesScreen", "fragment");
+                    preguntaActualEl.innerText = preguntaActual;
                 }
             })
         },1000);
     }
 
     function responder(respuesta){
-        console.log(`${preguntaActual} responde: ${respuesta}`);
+        updateRespuesta(pin, id, preguntaActual, respuesta)
     }
 
 </script>

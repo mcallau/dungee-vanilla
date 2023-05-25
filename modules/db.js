@@ -14,13 +14,23 @@ export function updatePreguntaActual(i, pin){
 }
 
 export function addUser(pin, nom){
-    fetch (`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/users.json`, {
+    return fetch (`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/users.json`, {
             method: 'POST',
             body: `{"name": "${nom}" }`
-    });
+    }).then(data => data.json());
 }
 
 export function getPreguntaActual(pin){
     return fetch(`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/pregunta.json`)
         .then(data => data.json())
+}
+
+
+export function updateRespuesta(pin, id, preguntaActual, respuesta){
+    fetch (`https://dungee-23819-default-rtdb.europe-west1.firebasedatabase.app/pins/pin${pin}/users/${userid}/respuesta${preguntaActual}.json`, {
+        method: 'PUT',
+        body: `{"value": "${nom}" }`
+});
+
+
 }
