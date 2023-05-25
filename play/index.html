@@ -37,6 +37,7 @@
 
     let pin;
     let nom;
+    let userid;
     let preguntaActual;
 
     joinButton.onclick = apuntarse;
@@ -54,7 +55,7 @@
 
         addUser(pin, nom)
         .then(user => {
-            console.log(user);
+            userid = user.name;
         })
 
         mostrar("waitingScreen", "fragment");
@@ -75,7 +76,7 @@
     }
 
     function responder(respuesta){
-        updateRespuesta(pin, id, preguntaActual, respuesta)
+        updateRespuesta(pin, userid, preguntaActual, respuesta)
     }
 
 </script>
